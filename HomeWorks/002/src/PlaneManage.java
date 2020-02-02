@@ -24,7 +24,6 @@ public class PlaneManage extends Manage {
             return isStart;
         }
 
-        System.out.println("Невозможно выполнить, т.к. пилот не на борту");
         return isStart;
     }
 
