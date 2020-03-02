@@ -11,7 +11,7 @@ public class Main {
         FightLog log = fightService.fight(Player1, Player2);
 
         // выводим лог в консоль
-        PrintToConsole printObj = new PrintToConsole();
+        PrintAtConsole printObj = new PrintAtConsole();
         printObj.print(log);
 
     }

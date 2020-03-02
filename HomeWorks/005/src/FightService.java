@@ -5,15 +5,15 @@ public class FightService {
     public FightLog fight(Unit unitFirst, Unit unitSecond) {
 
         // инициализация лога
-        FightLog log = new FightLog();
+        FightLog fightLog = new FightLog();
 
         // используем ссылки для определения того, кто будет бить первым
         Unit unitFirstForIteration;
         Unit unitSecondForIteration;
 
         // запись в лог готовых юнитов
-        log.insertRecord(unitFirst.getName() + " ready, health: " + unitFirst.getHealth() + ", attack: " + unitFirst.getAttack());
-        log.insertRecord(unitSecond.getName() + " ready, health: " + unitFirst.getHealth() + ", attack: " + unitFirst.getAttack());
+        fightLog.add(unitFirst.getName() + " ready, health: " + unitFirst.getHealth() + ", attack: " + unitFirst.getAttack());
+        fightLog.add(unitSecond.getName() + " ready, health: " + unitFirst.getHealth() + ", attack: " + unitFirst.getAttack());
 
         // бьемся пока кто-то не умрет
         int ourAttack;
@@ -32,25 +32,29 @@ public class FightService {
             // первый наносит удар
             ourAttack = getRandAttack(unitFirstForIteration.getAttack());
             unitSecondForIteration.HealthReduce(ourAttack);
-            log.insertRecord(unitFirstForIteration.getName() + " attack " + unitSecondForIteration.getName() + ", " + ourAttack + " damage");
+            fightLog.add(unitFirstForIteration.getName() + " attack " + unitSecondForIteration.getName() + ", " + ourAttack + " damage");
             if (! unitSecondForIteration.isAlive()) {
                 // второй умер, выходим
-                log.insertRecord(unitSecondForIteration.getName() + " died");
-                return log;
+                fightLog.add(unitSecondForIteration.getName() + " died");
+                fightLog.setWinner(unitFirstForIteration);
+                fightLog.setLooser(unitSecondForIteration);
+                return fightLog;
             }
 
             // второй наносит удар
             ourAttack = getRandAttack(unitSecondForIteration.getAttack());
             unitFirstForIteration.HealthReduce(ourAttack);
-            log.insertRecord(unitSecondForIteration.getName() + " attack " + unitFirstForIteration.getName() + ", " + ourAttack + " damage");
+            fightLog.add(unitSecondForIteration.getName() + " attack " + unitFirstForIteration.getName() + ", " + ourAttack + " damage");
             if (! unitFirstForIteration.isAlive()) {
                 // первый умер, выходим
-                log.insertRecord(unitFirstForIteration.getName() + " died");
-                return log;
+                fightLog.add(unitFirstForIteration.getName() + " died");
+                fightLog.setWinner(unitSecondForIteration);
+                fightLog.setLooser(unitFirstForIteration);
+                return fightLog;
             }
         }
 
-        return log;
+        return fightLog;
     }
 
     // случайное количество очков атаки с учетом максимальной силы атаки
