@@ -1,13 +1,14 @@
+import java.util.ArrayList;
+
 public class FightLog {
 
-    private static final int ARR_SIZE = 50;
     private int lastEventIndex = 0;
-    private String[] events = new String[ARR_SIZE];
+    private ArrayList events = new ArrayList();
     private Unit winner;
     private Unit looser;
 
     public int getLastEventIndex() {
-        return lastEventIndex;
+        return events.size();
     }
 
     public Unit getWinner() {
@@ -27,19 +28,11 @@ public class FightLog {
     }
 
     public void add(String event) {
-        events[lastEventIndex] = event;
-        if ( lastEventIndex + 1 > events.length ) {
-            String[] temp = events;
-            this.events = new String[temp.length + 10];
-            for (int i = 0; i < temp.length; i++) {
-                events[i] = temp[i];
-            }
-        }
-        lastEventIndex++;
+        events.add(event);
     }
 
     public String getEvents(int index) {
-        return events[index];
+        return (String) events.get(index);
     }
 
 }
