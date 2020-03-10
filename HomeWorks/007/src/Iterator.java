@@ -10,7 +10,7 @@ public class Iterator {
 
     // возвращаем истину, если элемент не последний в списке
     public boolean hasNext() {
-        return ( currentNode.getNext() != null );
+        return (currentNode.getNext() != null);
     }
 
     // переходим к следующему элементу и возвращаем хранимые данные

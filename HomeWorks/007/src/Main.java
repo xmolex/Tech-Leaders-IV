@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Main {
 
-    private static final String[] STRINGS_RAND = {"Mark","John","Tony","Andrew","Devid","EDWARD","JAKE","MAX","FREDDIE","HARRISON","TYLER","SEBASTIAN"};
+    private static final String[] STRINGS_RAND = {"Mark", "John", "Tony", "Andrew", "Devid", "EDWARD", "JAKE", "MAX", "FREDDIE", "HARRISON", "TYLER", "SEBASTIAN"};
     private static final int ARRAY_SIZE_FOR_EXAMPLE = 5;
 
     public static void main(String[] args) {
@@ -24,17 +24,13 @@ public class Main {
         // выводим список через for
         System.out.println("Выводим список через size()...");
         for (int i = 0; i < myList.size(); i++) {
-
-            System.out.print("Элемент " + i + ": " );
+            System.out.print("Элемент " + i + ": ");
             try {
                 System.out.println(myList.get(i));
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(e.getMessage());
             }
-
         }
-
     }
 
     // добавляем элемент в список случайным значением
