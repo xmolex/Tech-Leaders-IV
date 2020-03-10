@@ -12,6 +12,12 @@ public class LinkedList {
 
     // получаем элемент из коллекции по индексу
     public String get(int pos) {
+
+        // проверка на диапазон
+        if (! is_belongs_to_range(pos)) {
+            throw new ArrayIndexOutOfBoundsException("Exception: за границами массива");
+        }
+
         String currentStr = "";
         int currentPosition = 0;
         Iterator listIterator = new Iterator(this);
@@ -45,5 +51,10 @@ public class LinkedList {
 
     public int size() {
         return size;
+    }
+
+    // проверка на допустимый диапазон в массиве
+    private boolean is_belongs_to_range(int value) {
+        return ( value > -1 && value < size );
     }
 }

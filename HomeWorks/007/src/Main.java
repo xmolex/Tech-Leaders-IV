@@ -6,9 +6,9 @@ public class Main {
     private static final int ARRAY_SIZE_FOR_EXAMPLE = 5;
 
     public static void main(String[] args) {
-	    LinkedList myList = new LinkedList();
+        LinkedList myList = new LinkedList();
 
-	    // заполняем список
+        // заполняем список
         System.out.println("Заполняем список случайными строками...");
         for (int i = 0; i < ARRAY_SIZE_FOR_EXAMPLE; i++) {
             fillList(myList);
@@ -24,7 +24,15 @@ public class Main {
         // выводим список через for
         System.out.println("Выводим список через size()...");
         for (int i = 0; i < myList.size(); i++) {
-            System.out.println("Элемент " + i + ": " + myList.get(i) );
+
+            System.out.print("Элемент " + i + ": " );
+            try {
+                System.out.println(myList.get(i));
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
+
         }
 
     }
