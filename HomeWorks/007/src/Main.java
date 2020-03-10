@@ -34,7 +34,7 @@ public class Main {
         Random random = new Random();
         String randomStr = STRINGS_RAND[random.nextInt(STRINGS_RAND.length)];
         myList.add(randomStr);
-        System.out.println("add random value: '" + randomStr + "'" + " in inkedList");
+        System.out.println("add random value: '" + randomStr + "'" + " in LinkedList");
     }
 
     // выводим все элементы из списка
@@ -42,8 +42,7 @@ public class Main {
         int currentPosition = 0;
         Iterator listIterator = new Iterator(myList);
         while (listIterator.hasNext()) {
-            System.out.println("Элемент: " + currentPosition );
-            System.out.println(listIterator.next());
+            System.out.println("Элемент: " + currentPosition + ": " + listIterator.next());
             currentPosition++;
         }
     }
