@@ -1,101 +1,91 @@
-import com.sun.javaws.IconUtil;
+import logic.BattleService;
+import logic.FightLog;
+import logic.Unit;
 
 import java.util.Random;
 import java.util.Scanner;
 
 public class Interface {
 
-    private static final int MAX_HEALTH_RAND = 100;
-    private static final int MAX_ATTACK_RAND = 50;
-    private static final String[] ARRAY_NAMES_RAND = {"Mark","John","Tony","Andrew","Devid"};
+    private static final int COMMAND_NUMBER_EXIT = 0;
+    private static final int COMMAND_NUMBER_MANUAL = 1;
+    private static final int COMMAND_NUMBER_RANDOM = 2;
 
     public void print(FightLog fightLog) {
-        // выводим все записи в консоль
-        for (int i = 0; i < fightLog.getLastEventIndex(); i++) {
+        for (int i = 0; i < fightLog.getLastEventIndex(); i++)
             System.out.println(fightLog.getEvents(i));
-        }
 
-        // победители
-        System.out.println("Winner is " + fightLog.getWinner().getName() );
-        System.out.println("Looser is " + fightLog.getLooser().getName() );
+        System.out.println("The winner is " + fightLog.getWinner().getName());
+        System.out.println("The looser is " + fightLog.getLooser().getName());
+
     }
 
-    public void startInterface() {
-        System.out.println("Введите число:");
-        System.out.println("    1 - создать случайный поединок");
-        System.out.println("    2 - создать поединок с заданными параметрами");
-        System.out.println("    0 - выход");
-        Scanner scanner = new Scanner(System.in);
-
+    public void scan() {
         int userChoice = -1;
-        while (userChoice != 0) {
-            userChoice = scanner.nextInt();
-            if (userChoice == 1) {
-                // случайный поединок
-                // создаем двух юнитов
+        String enterName;
+        int enterHealthPoints;
+        int enterDamagePoints;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Inter '" + COMMAND_NUMBER_EXIT + "', to exit the program,\n" +
+                "Inter '" + COMMAND_NUMBER_MANUAL + "', to create units,\n" +
+                "Inter '" + COMMAND_NUMBER_RANDOM + "' to create units with random characters.\n");
+
+        userChoice = scanner.nextInt();
+
+
+        while (userChoice != COMMAND_NUMBER_EXIT) {
+            if (userChoice == COMMAND_NUMBER_MANUAL) {
+                System.out.println("Enter the name of the first warrior : ");
+                enterName = scanner.next();
+                System.out.println("Enter the health points of the first warrior : ");
+                enterHealthPoints = scanner.nextInt();
+                System.out.println("Enter the damage points of the first warrior : ");
+                enterDamagePoints = scanner.nextInt();
+                Unit unit1 = new Unit(enterName, enterHealthPoints, enterDamagePoints);
+                System.out.println("Enter the name of the second warrior: ");
+                enterName = scanner.next();
+                System.out.println("Enter the health points of the second warrior: ");
+                enterHealthPoints = scanner.nextInt();
+                System.out.println("Enter the damage points of the second warrior : ");
+                enterDamagePoints = scanner.nextInt();
+                Unit unit2 = new Unit(enterName, enterHealthPoints, enterDamagePoints);
+
+                equalsMain(unit1, unit2);
+            }
+
+            if (userChoice == COMMAND_NUMBER_RANDOM) {
                 Random random = new Random();
-                Unit player1 = new Unit( ARRAY_NAMES_RAND[random.nextInt(ARRAY_NAMES_RAND.length)],
-                        random.nextInt(MAX_HEALTH_RAND),
-                        random.nextInt(MAX_ATTACK_RAND)
-                );
-                Unit player2 = new Unit( ARRAY_NAMES_RAND[random.nextInt(ARRAY_NAMES_RAND.length)],
-                        random.nextInt(MAX_HEALTH_RAND),
-                        random.nextInt(MAX_ATTACK_RAND)
-                );
+                enterHealthPoints = random.nextInt(200) + 10;
+                enterDamagePoints = random.nextInt(100) + 10;
+                Unit unit1 = new Unit("Unit1", enterHealthPoints, enterDamagePoints);
+                enterHealthPoints = random.nextInt(200) + 10;
+                enterDamagePoints = random.nextInt(100) + 10;
+                Unit unit2 = new Unit("Unit2", enterHealthPoints, enterDamagePoints);
 
-                // проводим битву
-                FightService fightService = new FightService();
-                FightLog log = fightService.fight(player1, player2);
-
-                // выводим лог в консоль
-                Interface printObj = new Interface();
-                printObj.print(log);
-
-                // выходим
-                userChoice = 0;
+                equalsMain(unit1, unit2);
 
             }
-            else if (userChoice == 2) {
-                // поединок с заданными параметрами
-                String unitName;
-                int unitHealth;
-                int unitAttack;
 
-                // первый боец
-                System.out.println("Введите имя игрока1, строку:");
-                unitName = scanner.nextLine();
-                System.out.println("Введите здоровье игрока1, число:");
-                unitHealth = scanner.nextInt();
-                System.out.println("Введите силу атаки игрока1, число:");
-                unitAttack = scanner.nextInt();
-                Unit player1 = new Unit( unitName, unitHealth, unitAttack );
+            if (userChoice > COMMAND_NUMBER_RANDOM)
+                System.out.println("You enter a wrong number. Try again");
 
-                // второй боец
-                System.out.println("Введите имя игрока2, строку:");
-                unitName = scanner.nextLine();
-                System.out.println("Введите здоровье игрока2, число:");
-                unitHealth = scanner.nextInt();
-                System.out.println("Введите силу атаки игрока2, число:");
-                unitAttack = scanner.nextInt();
-                Unit player2 = new Unit( unitName, unitHealth, unitAttack );
+            System.out.println("Inter '" + COMMAND_NUMBER_EXIT + "', to exit the program,\n" +
+                    "Inter '" + COMMAND_NUMBER_MANUAL + "', to create units,\n" +
+                    "Inter '" + COMMAND_NUMBER_RANDOM + "' to create units with random characters.\n"
+            );
+            userChoice = scanner.nextInt();
 
-                // проводим битву
-                FightService fightService = new FightService();
-                FightLog log = fightService.fight(player1, player2);
-
-                // выводим лог в консоль
-                Interface printObj = new Interface();
-                printObj.print(log);
-
-                // выходим
-                userChoice = 0;
-
-            }
-            else {
-                // неверный параметр
-                System.out.println("Вы ввели неверный параметр, используйте 0-2");
-            }
         }
-        System.out.println("Завершение работы");
+
+        System.out.println("GoodBye");
+        scanner.close();
     }
+
+    private void equalsMain(Unit unit1, Unit unit2) {
+        BattleService battleService = new BattleService();
+        FightLog fightLog = battleService.fight(unit1, unit2);
+        print(fightLog);
+    }
+
+
 }
