@@ -10,14 +10,13 @@ public class Interface {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name or Exit");
         String cmdText = scanner.nextLine();
-        while (! COMMAND_EXIT.equals(cmdText)) {
+        while (!COMMAND_EXIT.equals(cmdText)) {
             long phoneNumber;
 
             try {
                 phoneNumber = phones.get(cmdText);
                 System.out.println("Phone number for " + cmdText + " is '" + phoneNumber + "'");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(cmdText + " not found");
             }
 

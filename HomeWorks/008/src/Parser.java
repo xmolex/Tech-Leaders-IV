@@ -15,7 +15,7 @@ public class Parser {
     public void parse(Phones phones) throws Exception {
 
         // читаем данные из файла
-        try (Scanner scanner = new Scanner( new FileInputStream( new File(getPathFile())))) {
+        try (Scanner scanner = new Scanner(new FileInputStream(new File(getPathFile())))) {
 
             // количество записей
             String countString = scanner.nextLine();
@@ -31,7 +31,7 @@ public class Parser {
                 scanner.nextLine(); // разделитель
             }
 
-            for(int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++) {
                 String name = scanner.nextLine();
                 String phoneNumberString = scanner.nextLine();
                 long phoneNumber;
