@@ -18,12 +18,35 @@ public class Parser {
         try (Scanner scanner = new Scanner( new FileInputStream( new File(getPathFile())))) {
 
             // количество записей
-            int count = scanner.nextInt();
-            scanner.nextLine(); // разделитель
+            String countString = scanner.nextLine();
+            int count;
+
+            try {
+                count = Integer.parseInt(countString);
+            } catch (Exception e) {
+                throw new Exception("COUNT_IS_NOT_INTEGER: '" + countString + "'");
+            }
+
+            if (scanner.hasNext()) {
+                scanner.nextLine(); // разделитель
+            }
 
             for(int i = 0; i < count; i++) {
                 String name = scanner.nextLine();
-                Long phoneNumber = scanner.nextLong();
+                String phoneNumberString = scanner.nextLine();
+                long phoneNumber;
+
+                try {
+                    phoneNumber = Long.parseLong(phoneNumberString);
+                } catch (Exception e) {
+                    throw new Exception("PHONENUMBER_IS_NOT_LONG: '" + phoneNumberString + "'");
+                }
+
+                if (scanner.hasNext()) {
+                    scanner.nextLine(); // разделитель
+                }
+
+                // заносим запись в адресную книгу
                 phones.add(name, phoneNumber);
             }
 
