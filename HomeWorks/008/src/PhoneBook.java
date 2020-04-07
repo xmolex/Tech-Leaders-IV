@@ -1,9 +1,10 @@
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class PhoneBook {
 
-    private HashMap<String, Long> phoneBook = new HashMap<>();
+    private Map<String, Long> phoneBook = new HashMap<>();
 
     public void add(String name, long phone) {
         phoneBook.put(name, phone);
