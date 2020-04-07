@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Set;
 
-public class Phones {
+public class PhoneBook {
 
     private HashMap<String, Long> phoneBook = new HashMap<>();
 

@@ -5,24 +5,21 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Phones phones = new Phones();
-        Parser parser = new Parser(pathFileWithData);
-        Interface interFace = new Interface();
+        PhoneBook phoneBook = new PhoneBook();
+        ParserFromFile parser = new ParserFromFile(pathFileWithData);
+        ConsoleUserInterface interFace = new ConsoleUserInterface();
 
-        // разбираем файл и заполняем телефонную книгу
-        boolean isFileParse = true;
+        // парсим файл
         try {
-            parser.parse(phones);
+            parser.parse(phoneBook);
 
         } catch (Exception e) {
-            isFileParse = false;
             interFace.printException(e);
+            return;
         }
 
-        if (isFileParse) {
-            // производим поиск по телефонной книге
-            interFace.scan(phones);
-        }
+        // производим поиск по телефонной книге
+        interFace.run(phoneBook);
 
     }
 }
